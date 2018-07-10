@@ -60,13 +60,22 @@ namespace GoFish
             // This is where an opponent asks if I have any cards of a certain value
             // Use Deck.PullOutValues() to pull out the values. Add a line to the TextBox
             // that says, "Joe has 3 sixes"—use the new Card.Plural() static method
-
+            Deck cardsIHave = cards.PullOutValues(value);
+            textBoxOnForm.Text = $"{Name} has {cardsIHave.Count} {Card.Plural(value)}{Environment.NewLine}";
+            return cardsIHave;
         }
 
         public void AskForACard(List<Player> players, int myIndex, Deck stock)
         {
             // Here's an overloaded version of AskForACard()—choose a random value
             // from the deck using GetRandomValue() and ask for it using AskForACard()
+            if (stock.Count > 0)
+            {
+                if (cards.Count == 0)
+                    cards.Add(stock.Deal());
+                Values randomValue = GetRandomValue();
+                AskForACard(players, myIndex, stock, randomValue);
+            }
         }
 
         public void AskForACard(List<Player> players, int myIndex, Deck stock, Values value)
@@ -78,10 +87,30 @@ namespace GoFish
             // Keep track of how many cards were added. If there weren't any, you'll need
             // to deal yourself a card from the stock (which was also passed as a parameter),
             // and you'll have to add a line to the TextBox: "Joe had to draw from the stock"
+            textBoxOnForm.Text = $"{Name} asks if anyone has a {value}{Environment.NewLine}";
+
+            int totalCardsGiven = 0;
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (i != myIndex)
+                {
+                    Player player = players[i];
+                    Deck CardsGiven = player.DoYouHaveAny(value);
+                    totalCardsGiven += CardsGiven.Count;
+                    while (CardsGiven.Count > 0)
+                        cards.Add(CardsGiven.Deal());
+                }
+            }
+            if (totalCardsGiven == 0 && stock.Count > 0)
+            {
+                textBoxOnForm.Text += $"{Name} must draw from the stock.{Environment.NewLine}";
+                cards.Add(stock.Deal());
+            }
         }
         
         // Here's a property and a few short methods that were already written for you
         public int CardCount { get { return cards.Count; } }
+
         public void TakeCard(Card card) { cards.Add(card); }
         public IEnumerable<string> GetCardNames() { return cards.GetCardNames(); }
         public Card Peek(int cardNumber) { return cards.Peek(cardNumber); }
