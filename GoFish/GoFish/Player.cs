@@ -24,8 +24,9 @@ namespace GoFish
             this.name = name;
             this.random = random;
             this.textBoxOnForm = textBoxOnForm;
+            cards = new Deck(new Card[] { });
 
-
+            textBoxOnForm.Text = $"{Name} has just joined the game \r\n";
         }
 
         public IEnumerable<Values> PullOutBooks()
@@ -50,6 +51,8 @@ namespace GoFish
         public Values GetRandomValue()
         {
             // This method gets a random value—but it has to be a value that's in the deck!
+            Card randomCard = cards.Peek(random.Next(cards.Count));
+            return randomCard.Value;
         }
 
         public Deck DoYouHaveAny(Values value)
@@ -57,6 +60,7 @@ namespace GoFish
             // This is where an opponent asks if I have any cards of a certain value
             // Use Deck.PullOutValues() to pull out the values. Add a line to the TextBox
             // that says, "Joe has 3 sixes"—use the new Card.Plural() static method
+
         }
 
         public void AskForACard(List<Player> players, int myIndex, Deck stock)
