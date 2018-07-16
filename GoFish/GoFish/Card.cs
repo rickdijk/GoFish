@@ -16,10 +16,12 @@ namespace GoFish
             this.Suit = suit;
             this.Value = value;
         }
+
         public string Name
         {
             get { return Value.ToString() + " of " + Suit.ToString(); }
         }
+
         public override string ToString()
         {
             return Name;
@@ -27,6 +29,7 @@ namespace GoFish
 
         public static bool DoesCardMatch(Card cardToCheck, Suits suit)
         {
+            //compares card with given suit
             if (cardToCheck.Suit == suit)
             {
                 return true;
@@ -39,6 +42,7 @@ namespace GoFish
 
         public static bool DoesCardMatch(Card cardToCheck, Values value)
         {
+            //compares card with given value
             if (cardToCheck.Value == value)
             {
                 return true;
@@ -51,6 +55,7 @@ namespace GoFish
 
         public static string Plural(Values value)
         {
+            //Makes the value plural
             if (value == Values.Six)
                 return "Sixes";
             else

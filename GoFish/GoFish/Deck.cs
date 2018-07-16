@@ -13,6 +13,7 @@ namespace GoFish
 
         public Deck()
         {
+            //no parameter = full deck
             cards = new List<Card>();
             for (int suit = 0; suit <= 3; suit++)
                 for (int value = 1; value <= 13; value++)
@@ -21,6 +22,7 @@ namespace GoFish
 
         public Deck(IEnumerable<Card> initialCards)
         {
+            //ctor with parameter = creating a deck with a new list of cards
             cards = new List<Card>(initialCards);
         }
 
@@ -33,6 +35,7 @@ namespace GoFish
 
         public Card Deal(int index)
         {
+            //returns a card that will be removed from the specific deck
             Card CardToDeal = cards[index];
             cards.RemoveAt(index);
             return CardToDeal;
@@ -40,6 +43,12 @@ namespace GoFish
 
         public void Shuffle()
         {
+            /* makes a new list of cards,
+             * picks a random card from the existing deck, as an int
+             * adds this card to the new list of cards, with the int reference
+             * removes the card from the existing deck
+             * continues until entire deck is done
+             * converts existing deck into new deck */
             List<Card> newCards = new List<Card>();
             while (cards.Count > 0)
             {
@@ -52,6 +61,7 @@ namespace GoFish
 
         public IEnumerable<string> GetCardNames()
         {
+            //returns an array of strings with the names of the cards in the deck
             string[] CardNames = new string[cards.Count];
             for (int i = 0; i < cards.Count; i++)
                 CardNames[i] = cards[i].Name;
@@ -75,6 +85,7 @@ namespace GoFish
 
         public bool ContainsValue(Values value)
         {
+            //returns true if a certain value exists inside the deck
             foreach (Card card in cards)
                 if (card.Value == value)
                     return true;
