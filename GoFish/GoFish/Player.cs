@@ -17,20 +17,12 @@ namespace GoFish
 
         public Player(String name, Random random, TextBox textBoxOnForm)
         {
-            // The constructor for the Player class initializes four private fields, and then
-            // adds a line to the TextBox control on the form that says, "Joe has just
-            // joined the game"—but use the name in the private field, and don't forget to
-            // add a line break at the end of every line you add to the TextBox.
             this.name = name;
             this.random = random;
             this.textBoxOnForm = textBoxOnForm;
-<<<<<<< HEAD
-            cards = new Deck();
-=======
-            cards = new Deck(new Card[] { });
->>>>>>> bc137efb3ac8772a8e529f3d6ce099684a142994
-
-            textBoxOnForm.Text = $"{Name} has just joined the game \r\n";
+            this.cards = new Deck(new Card[] { });
+            textBoxOnForm.Text += name +
+            " has just joined the game" + Environment.NewLine;
         }
 
         public IEnumerable<Values> PullOutBooks()
@@ -54,29 +46,20 @@ namespace GoFish
 
         public Values GetRandomValue()
         {
-            // This method gets a random value—but it has to be a value that's in the deck!
-<<<<<<< HEAD
-            Values randomValue = cards[random.Next(0, cards.Length)];
-=======
             Card randomCard = cards.Peek(random.Next(cards.Count));
             return randomCard.Value;
->>>>>>> bc137efb3ac8772a8e529f3d6ce099684a142994
         }
 
         public Deck DoYouHaveAny(Values value)
         {
-            // This is where an opponent asks if I have any cards of a certain value
-            // Use Deck.PullOutValues() to pull out the values. Add a line to the TextBox
-            // that says, "Joe has 3 sixes"—use the new Card.Plural() static method
             Deck cardsIHave = cards.PullOutValues(value);
-            textBoxOnForm.Text = $"{Name} has {cardsIHave.Count} {Card.Plural(value)}{Environment.NewLine}";
+            textBoxOnForm.Text += Name + " has " + cardsIHave.Count + " "
+            + Card.Plural(value) + Environment.NewLine;
             return cardsIHave;
         }
 
         public void AskForACard(List<Player> players, int myIndex, Deck stock)
         {
-            // Here's an overloaded version of AskForACard()—choose a random value
-            // from the deck using GetRandomValue() and ask for it using AskForACard()
             if (stock.Count > 0)
             {
                 if (cards.Count == 0)
@@ -88,15 +71,8 @@ namespace GoFish
 
         public void AskForACard(List<Player> players, int myIndex, Deck stock, Values value)
         {
-            // Ask the other players for a value. First add a line to the TextBox: "Joe asks
-            // if anyone has a Queen". Then go through the list of players that was passed in
-            // as a parameter and ask each player if he has any of the value (using his
-            // DoYouHaveAny() method). He'll pass you a deck of cards—add them to my deck.
-            // Keep track of how many cards were added. If there weren't any, you'll need
-            // to deal yourself a card from the stock (which was also passed as a parameter),
-            // and you'll have to add a line to the TextBox: "Joe had to draw from the stock"
-            textBoxOnForm.Text = $"{Name} asks if anyone has a {value}{Environment.NewLine}";
-
+            textBoxOnForm.Text += Name + " asks if anyone has a "
+            + value + Environment.NewLine;
             int totalCardsGiven = 0;
             for (int i = 0; i < players.Count; i++)
             {
@@ -111,11 +87,12 @@ namespace GoFish
             }
             if (totalCardsGiven == 0 && stock.Count > 0)
             {
-                textBoxOnForm.Text += $"{Name} must draw from the stock.{Environment.NewLine}";
+                textBoxOnForm.Text += Name +
+                " must draw from the stock." + Environment.NewLine;
                 cards.Add(stock.Deal());
             }
         }
-        
+
         // Here's a property and a few short methods that were already written for you
         public int CardCount { get { return cards.Count; } }
 
