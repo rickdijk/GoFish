@@ -43,12 +43,6 @@ namespace GoFish
 
         public void Shuffle()
         {
-            /* makes a new list of cards,
-             * picks a random card from the existing deck, as an int
-             * adds this card to the new list of cards, with the int reference
-             * removes the card from the existing deck
-             * continues until entire deck is done
-             * converts existing deck into new deck */
             List<Card> newCards = new List<Card>();
             while (cards.Count > 0)
             {
