@@ -24,8 +24,9 @@ namespace GoFish
             this.name = name;
             this.random = random;
             this.textBoxOnForm = textBoxOnForm;
+            cards = new Deck();
 
-
+            textBoxOnForm.Text = $"{Name} has just joined the game \r\n";
         }
 
         public IEnumerable<Values> PullOutBooks()
@@ -50,6 +51,7 @@ namespace GoFish
         public Values GetRandomValue()
         {
             // This method gets a random value—but it has to be a value that's in the deck!
+            Values randomValue = cards[random.Next(0, cards.Length)];
         }
 
         public Deck DoYouHaveAny(Values value)
