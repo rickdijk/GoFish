@@ -64,6 +64,7 @@
             this.buttonStart.TabIndex = 2;
             this.buttonStart.Text = "Start the game!";
             this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // label2
             // 
@@ -127,6 +128,7 @@
             this.buttonAsk.TabIndex = 9;
             this.buttonAsk.Text = "Ask for a card";
             this.buttonAsk.UseVisualStyleBackColor = true;
+            this.buttonAsk.Click += new System.EventHandler(this.buttonAsk_Click);
             // 
             // Form1
             // 

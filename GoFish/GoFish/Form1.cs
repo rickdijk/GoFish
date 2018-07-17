@@ -19,20 +19,6 @@ namespace GoFish
 
         private Game game;
 
-        private void buttonStart_Click(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(textName.Text))
-            {
-                MessageBox.Show("Please enter your name", "Can't start the game yet");
-                return;
-            }
-            game = new Game(textName.Text, new List<string> { "Joe", "Bob" }, textProgress);
-            buttonStart.Enabled = false;
-            textName.Enabled = false;
-            buttonAsk.Enabled = true;
-            UpdateForm();
-        }
-
         private void UpdateForm()
         {
             listHand.Items.Clear();
@@ -60,6 +46,20 @@ namespace GoFish
             }
             else
                 UpdateForm();
+        }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(textName.Text))
+            {
+                MessageBox.Show("Please enter your name", "Can't start the game yet");
+                return;
+            }
+            game = new Game(textName.Text, new List<string> { "Joe", "Bob" }, textProgress);
+            buttonStart.Enabled = false;
+            textName.Enabled = false;
+            buttonAsk.Enabled = true;
+            UpdateForm();
         }
     }
 }
